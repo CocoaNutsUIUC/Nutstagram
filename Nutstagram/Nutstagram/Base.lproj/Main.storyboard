@@ -8,6 +8,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -31,10 +32,10 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="501"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mkM-zY-L4Y" id="qUo-Ew-kg8">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="501"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="500.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="248" verticalCompressionResistancePriority="749" image="cave" translatesAutoresizingMaskIntoConstraints="NO" id="Rn3-wK-nzW">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="248" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="Rn3-wK-nzW">
                                                     <rect key="frame" x="0.0" y="44.5" width="375" height="330"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 </imageView>
@@ -76,11 +77,21 @@
                                                         <segue destination="f5y-k0-t95" kind="show" identifier="comments" id="jyv-OG-tUr"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5uV-0f-W9y">
+                                                    <rect key="frame" x="259" y="385" width="108" height="30"/>
+                                                    <state key="normal" title="Write Comment">
+                                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <segue destination="4ve-VS-HMd" kind="show" identifier="addComment" id="JyS-o5-D7T"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="nhL-v1-3lI" firstAttribute="top" secondItem="zkV-fN-vOY" secondAttribute="bottom" constant="8" symbolic="YES" id="0Ev-he-bFr"/>
                                                 <constraint firstItem="NZx-Gu-nwo" firstAttribute="leading" secondItem="qUo-Ew-kg8" secondAttribute="leadingMargin" id="13U-03-EPI"/>
                                                 <constraint firstItem="VgN-7d-McR" firstAttribute="centerY" secondItem="zkV-fN-vOY" secondAttribute="centerY" id="6qc-HX-h2e"/>
+                                                <constraint firstItem="5uV-0f-W9y" firstAttribute="centerY" secondItem="zkV-fN-vOY" secondAttribute="centerY" id="8OZ-8X-1Ct"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="S5g-Mf-rEf" secondAttribute="bottom" constant="8" id="Fwb-M6-nrx"/>
                                                 <constraint firstAttribute="trailing" secondItem="Rn3-wK-nzW" secondAttribute="trailing" id="KFO-9j-J68"/>
                                                 <constraint firstItem="S5g-Mf-rEf" firstAttribute="leading" secondItem="qUo-Ew-kg8" secondAttribute="leadingMargin" id="Kg9-JC-1Tj"/>
@@ -92,12 +103,14 @@
                                                 <constraint firstItem="NZx-Gu-nwo" firstAttribute="trailing" secondItem="qUo-Ew-kg8" secondAttribute="trailingMargin" id="d1g-Ki-rFs"/>
                                                 <constraint firstItem="nhL-v1-3lI" firstAttribute="leading" secondItem="qUo-Ew-kg8" secondAttribute="leadingMargin" id="jlx-7p-sIb"/>
                                                 <constraint firstItem="NZx-Gu-nwo" firstAttribute="top" secondItem="qUo-Ew-kg8" secondAttribute="topMargin" constant="8" id="oaJ-bT-2pk"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="5uV-0f-W9y" secondAttribute="trailing" id="sJZ-rU-3Qq"/>
                                                 <constraint firstItem="Rn3-wK-nzW" firstAttribute="leading" secondItem="qUo-Ew-kg8" secondAttribute="leading" id="ubB-Z3-CLH"/>
                                                 <constraint firstItem="Rn3-wK-nzW" firstAttribute="top" secondItem="NZx-Gu-nwo" secondAttribute="bottom" constant="8" symbolic="YES" id="w9l-gM-lbn"/>
                                                 <constraint firstItem="nhL-v1-3lI" firstAttribute="trailing" secondItem="qUo-Ew-kg8" secondAttribute="trailingMargin" id="x07-Jq-lar"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="addCommentButton" destination="5uV-0f-W9y" id="TKR-m2-Q3W"/>
                                             <outlet property="likeButton" destination="zkV-fN-vOY" id="FdL-Gm-etp"/>
                                             <outlet property="numLikesLabel" destination="VgN-7d-McR" id="gqt-ge-iOe"/>
                                             <outlet property="postImageView" destination="Rn3-wK-nzW" id="qZg-oU-k5N"/>
@@ -181,14 +194,65 @@
             </objects>
             <point key="canvasLocation" x="4742" y="222"/>
         </scene>
+        <!--Add Comment-->
+        <scene sceneID="mk1-Zt-8gz">
+            <objects>
+                <viewController id="4ve-VS-HMd" customClass="AddCommentViewController" customModule="Nutstagram" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gsf-fe-UJa"/>
+                        <viewControllerLayoutGuide type="bottom" id="B3b-Yj-6pK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="REe-lJ-7vU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZS-hx-Oln">
+                                <rect key="frame" x="16" y="64" width="343" height="269.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="B3b-Yj-6pK" firstAttribute="top" secondItem="DZS-hx-Oln" secondAttribute="bottom" multiplier="2" id="S6C-jQ-QEf"/>
+                            <constraint firstItem="DZS-hx-Oln" firstAttribute="top" secondItem="gsf-fe-UJa" secondAttribute="bottom" id="b0x-gd-Rrq"/>
+                            <constraint firstItem="DZS-hx-Oln" firstAttribute="leading" secondItem="REe-lJ-7vU" secondAttribute="leadingMargin" id="hcF-8p-nWP"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="DZS-hx-Oln" secondAttribute="trailing" id="n6S-Hz-ejz"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add Comment" id="hHE-ZM-UzQ">
+                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="GB2-gR-pJd">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="dcQ-CV-pJc">
+                                <rect key="frame" x="276" y="7" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="doneButtonTapped:" destination="4ve-VS-HMd" eventType="touchUpInside" id="CZj-3x-9OO"/>
+                                </connections>
+                            </button>
+                            <color key="tintColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="textView" destination="DZS-hx-Oln" id="fAa-TY-HQt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vqQ-AZ-Ye0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4080.8000000000002" y="997.15142428785612"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="ZZu-eE-EdL">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tuO-5u-mVm" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Rx8-PH-S9l">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Rx8-PH-S9l">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -201,7 +265,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="cave" width="2448" height="2448"/>
         <image name="default" width="35" height="35"/>
     </resources>
 </document>

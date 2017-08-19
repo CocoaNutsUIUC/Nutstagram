@@ -30,9 +30,10 @@ struct Post {
     // MARK: Properties
     
     public let author: User
-    public let image: UIImage
+    public var image: UIImage?
+    public let imageURL: URL
     public var numLikes: Int
-    public let comments: [String]
+    public var comments: [String]
     
     private(set) public var isLiked: Bool // read-only property
     
@@ -40,9 +41,17 @@ struct Post {
     
     // MARK: Initializer
     
-    init(author: User, image: UIImage, numLikes: Int, comments: [String]) {
+//    init(author: User, image: UIImage, numLikes: Int, comments: [String]) {
+//        self.author = author
+//        self.image = image
+//        self.numLikes = numLikes
+//        self.comments = comments
+//        self.isLiked = false
+//    }
+    
+    init(author: User, imageURL: URL, numLikes: Int, comments: [String]) {
         self.author = author
-        self.image = image
+        self.imageURL = imageURL
         self.numLikes = numLikes
         self.comments = comments
         self.isLiked = false
