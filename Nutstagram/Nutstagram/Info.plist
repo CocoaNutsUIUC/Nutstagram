@@ -10,7 +10,7 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>http://nutstagramapi-env-1.j3tcbpybxd.us-east-1.elasticbeanstalk.com</key>
+			<key>http://nutstagramapi-env-2.j3tcbpybxd.us-east-1.elasticbeanstalk.com</key>
 			<string></string>
 		</dict>
 	</dict>
