@@ -272,7 +272,7 @@ extension NutstagramTableViewController: URLSessionDataDelegate {
             guard let commentsInfo = postInfo["comments"] as? [[String: Any]] else { return }
             
             guard let userName = userInfo["name"] as? String else { return }
-            guard let userEmojiProfilePic = userInfo["emoji_file_pic"] as? String else { return }
+            guard let userEmojiProfilePic = userInfo["emoji_profile_pic"] as? String else { return }
             
             var comments = [String]()
             
