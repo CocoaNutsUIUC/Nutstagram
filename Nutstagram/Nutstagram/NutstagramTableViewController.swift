@@ -86,21 +86,21 @@ class NutstagramTableViewController: UIViewController {
     // MARK: Private Helper methods
     
     fileprivate func loadServerData() {
-        guard let url = URL(string: "http://api.nutstagram.com/posts") else {
+        guard let url = URL(string: "http://nutstagramapi-env-1.j3tcbpybxd.us-east-1.elasticbeanstalk.com/posts") else {
             return
         }
         sendURLRequest(url: url, httpMethod: "GET", delegate: self)
     }
     
     private func likePost(withId postId: Int) {
-        guard let url = URL(string: "http://api.nutstagram.com/like/\(postId)") else {
+        guard let url = URL(string: "http://nutstagramapi-env-1.j3tcbpybxd.us-east-1.elasticbeanstalk.com/\(postId)") else {
             return
         }
         sendURLRequest(url: url, httpMethod: "POST", delegate: nil)
     }
     
     private func unlikePost(withId postId: Int) {
-        guard let url = URL(string: "http://api.nutstagram.com/unlike/\(postId)") else {
+        guard let url = URL(string: "http://nutstagramapi-env-1.j3tcbpybxd.us-east-1.elasticbeanstalk.com/\(postId)") else {
             return
         }
         sendURLRequest(url: url, httpMethod: "POST", delegate: nil)
@@ -170,7 +170,7 @@ class NutstagramTableViewController: UIViewController {
 extension NutstagramTableViewController: AddCommentViewControllerDelegate {
     func addComment(_ comment: String, postId: Int, row: Int) {
         let text = comment.replacingOccurrences(of: " ", with: "_")
-        guard let url = URL(string: "http://api.nutstagram.com/comment/\(postId)/\(text)") else {
+        guard let url = URL(string: "http://nutstagramapi-env-1.j3tcbpybxd.us-east-1.elasticbeanstalk.com/comment/\(postId)/\(text)") else {
             return
         }
         sendURLRequest(url: url, httpMethod: "POST", delegate: nil)
@@ -233,7 +233,6 @@ extension NutstagramTableViewController: UITableViewDataSource {
     
     private func loadImage(from url: URL, for cell: NutstagramTableViewCell, at indexPath: IndexPath) {
         DispatchQueue(label: "LoadImage").async {
-            print("Loading image: \(url)")
             guard let imageData = try? Data(contentsOf: url) else { return }
             guard let image = UIImage(data: imageData) else { return }
             
