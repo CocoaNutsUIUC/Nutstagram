@@ -86,31 +86,33 @@ class NutstagramTableViewController: UIViewController {
     // MARK: Private Helper methods
     
     fileprivate func loadServerData() {
-        guard let url = URL(string: "http://nutstagramapi-env-2.j3tcbpybxd.us-east-1.elasticbeanstalk.com/posts") else {
-            return
+        if let url = URL(string: "http://nutstagramapi-env-2.j3tcbpybxd.us-east-1.elasticbeanstalk.com/posts") {
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET"
+            send(urlRequest: request, delegate: self)
+
         }
-        sendURLRequest(url: url, httpMethod: "GET", delegate: self)
     }
     
     private func likePost(withId postId: Int) {
-        guard let url = URL(string: "http://nutstagramapi-env-2.j3tcbpybxd.us-east-1.elasticbeanstalk.com/\(postId)") else {
-            return
+        if let url = URL(string: "http://nutstagramapi-env-2.j3tcbpybxd.us-east-1.elasticbeanstalk.com/\(postId)") {
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            send(urlRequest: request, delegate: nil)
         }
-        sendURLRequest(url: url, httpMethod: "POST", delegate: nil)
     }
     
     private func unlikePost(withId postId: Int) {
-        guard let url = URL(string: "http://nutstagramapi-env-2.j3tcbpybxd.us-east-1.elasticbeanstalk.com/\(postId)") else {
-            return
+        if let url = URL(string: "http://nutstagramapi-env-2.j3tcbpybxd.us-east-1.elasticbeanstalk.com/\(postId)") {
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            send(urlRequest: request, delegate: nil)
         }
-        sendURLRequest(url: url, httpMethod: "POST", delegate: nil)
     }
     
-    fileprivate func sendURLRequest(url: URL, httpMethod: String, delegate: URLSessionDataDelegate?) {
+    fileprivate func send(urlRequest: URLRequest, delegate: URLSessionDataDelegate?) {
         let defaultSession = URLSession(configuration: .default, delegate: delegate, delegateQueue: nil)
-        var request = URLRequest(url: url)
-        request.httpMethod = httpMethod
-        let dataTask = defaultSession.dataTask(with: request)
+        let dataTask = defaultSession.dataTask(with: urlRequest)
         dataTask.resume()
     }
     
@@ -169,13 +171,20 @@ class NutstagramTableViewController: UIViewController {
 
 extension NutstagramTableViewController: AddCommentViewControllerDelegate {
     func addComment(_ comment: String, postId: Int, row: Int) {
-        let text = comment.replacingOccurrences(of: " ", with: "_")
-        guard let url = URL(string: "http://nutstagramapi-env-2.j3tcbpybxd.us-east-1.elasticbeanstalk.com/comment/\(postId)/\(text)") else {
-            return
+        if let url = URL(string: "http://nutstagramapi-env-2.j3tcbpybxd.us-east-1.elasticbeanstalk.com/comment/\(postId)") {
+            var request = URLRequest(url: url)
+            let dictionary = ["text": comment]
+            let httpBody = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+
+            request.httpMethod = "POST"
+            request.httpBody = httpBody
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("application/json", forHTTPHeaderField: "Accept")
+
+            send(urlRequest: request, delegate: nil)
+            posts[row].comments.append(comment)
+            tableView.reloadRows(at: [IndexPath(row: row, section: 0)], with: .automatic)
         }
-        sendURLRequest(url: url, httpMethod: "POST", delegate: nil)
-        posts[row].comments.append(comment)
-        tableView.reloadRows(at: [IndexPath(row: row, section: 0)], with: .automatic)
     }
 }
 
