@@ -9,16 +9,14 @@
 import UIKit
 
 class NutstagramCommentsTableViewController: UIViewController {
-
+    
+    // MARK: IB Outlets
+    
     @IBOutlet weak var tableView: UITableView!
-    
-    
     
     // MARK: Properties
     
     public var comments: [String]?
-    
-    
     
     // MARK: ViewController Methods
     
@@ -26,10 +24,7 @@ class NutstagramCommentsTableViewController: UIViewController {
         super.viewDidLoad()
         self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.4756349325, green: 0.4756467342, blue: 0.4756404161, alpha: 1)
     }
-    
 }
-
-
 
 // MARK: - UITableViewDelegate extension
 
@@ -41,10 +36,7 @@ extension NutstagramCommentsTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
-    
 }
-
-
 
 // MARK: - UITableViewDataSource extension
 

@@ -10,8 +10,6 @@ import UIKit
 
 class NutstagramTableViewCell: UITableViewCell {
 
-    
-    
     // MARK: IB Outlets
     
     @IBOutlet weak var userNameLabel: UILabel!

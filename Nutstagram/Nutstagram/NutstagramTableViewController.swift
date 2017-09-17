@@ -10,6 +10,7 @@ import UIKit
 
 class NutstagramTableViewController: UIViewController {
 
+    // MARK: IB Outlets
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -26,8 +27,6 @@ class NutstagramTableViewController: UIViewController {
     var postForButton = [Int:Int]()
     
     private let refreshControl = UIRefreshControl()
-    
-    
     
     // MARK: ViewController methods
     
@@ -80,8 +79,6 @@ class NutstagramTableViewController: UIViewController {
         }
         
     }
-    
-    
     
     // MARK: Private Helper methods
     
@@ -137,8 +134,6 @@ class NutstagramTableViewController: UIViewController {
         loadServerData()
         self.refreshControl.endRefreshing()
     }
-    
-    
     
     // MARK: Navigation
     
@@ -202,7 +197,6 @@ extension NutstagramTableViewController: UITableViewDelegate {
     }
     
 }
-
 
 // MARK: - UITableViewDataSource extension
 
