@@ -9,7 +9,6 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
-        <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -154,10 +153,7 @@
                                                     <state key="normal" title="🕶 Change Filter"/>
                                                     <connections>
                                                         <action selector="changeFilterButtonTapped:" destination="afs-iC-cC9" eventType="touchUpInside" id="1e5-pB-Rlu"/>
-                                                        <segue destination="SDb-rH-mHh" kind="presentation" identifier="showFilterPicker" id="cDJ-Hk-UNe">
-                                                            <segue key="commit" inheritsFrom="parent" id="jaB-zA-GRr"/>
-                                                            <segue key="preview" inheritsFrom="commit" id="vQ3-Wu-eAe"/>
-                                                        </segue>
+                                                        <segue destination="SDb-rH-mHh" kind="presentation" identifier="showFilterPicker" id="cDJ-Hk-UNe"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -344,7 +340,4 @@
     <resources>
         <image name="default" width="35" height="35"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="cDJ-Hk-UNe"/>
-    </inferredMetricsTieBreakers>
 </document>

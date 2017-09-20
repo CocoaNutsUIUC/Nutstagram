@@ -6,6 +6,7 @@
 //  Copyright © 2017 Jared Franzone. All rights reserved.
 //
 
+import CoreImage
 import UIKit
 
 private let reuseIdentifier = "filterCell"
@@ -13,6 +14,12 @@ private let reuseIdentifier = "filterCell"
 class ImageFilterCollectionViewController: UICollectionViewController {
 	
 	var unmodifiedImage: UIImage!
+	
+	let displayedFilterCategories = [
+		kCICategoryColorEffect,
+		kCICategoryStylize
+	]
+	var chooseableFilters = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,31 +28,20 @@ class ImageFilterCollectionViewController: UICollectionViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
+        self.collectionView!.register(ImageFilterCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+		
+		// Get the list of available filters
+		chooseableFilters = CIFilter.filterNames(inCategories: displayedFilterCategories)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+	
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
         return 0
     }
 
