@@ -24,6 +24,7 @@ class NutstagramTableViewController: UIViewController {
     // these dictionaries map a posts "like" button and "view all comments" button and "write comment" button to the `posts` array
     var commentsButtonPostLink = [Int:Int]()
     var addCommentButtonPostLink = [Int:Int]()
+	var filterButtonPostLink = [Int:Int]()
     var postForButton = [Int:Int]()
     
     private let refreshControl = UIRefreshControl()
@@ -79,7 +80,12 @@ class NutstagramTableViewController: UIViewController {
         }
         
     }
-    
+	
+	@IBAction func changeFilterButtonTapped(_ sender: UIButton) {
+		// Show the UI to select a new filter
+		self.performSegue(withIdentifier: "showFilterPicker", sender: sender)
+	}
+	
     // MARK: Private Helper methods
     
     fileprivate func loadServerData() {
@@ -113,7 +119,7 @@ class NutstagramTableViewController: UIViewController {
         dataTask.resume()
     }
     
-    fileprivate func resize(image: UIImage ) -> UIImage {
+    fileprivate func resize(image: UIImage) -> UIImage {
         // calculate scaling ratio
         let imageWidth = image.size.width
         let screenWidth = (UIDevice.current.orientation == .portrait) ? self.view.bounds.width : self.view.bounds.height
@@ -159,6 +165,18 @@ class NutstagramTableViewController: UIViewController {
                 }
             }
         }
+		
+		if segue.identifier == "showFilterPicker" {
+			if let vc = segue.destination as? ImageFilterCollectionViewController {
+				if let button = sender as? UIButton {
+					if let row = filterButtonPostLink[button.hash] {
+						let postId = postIds[row]
+						let post = posts[postId]
+						vc.unmodifiedImage = post.image
+					}
+				}
+			}
+		}
     }
 }
 

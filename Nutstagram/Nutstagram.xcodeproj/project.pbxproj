@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B8F078121F72F4F1000FD633 /* ImageFilterCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F078111F72F4F1000FD633 /* ImageFilterCollectionViewController.swift */; };
 		D59AD1271F473E7900F84200 /* AddCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59AD1261F473E7900F84200 /* AddCommentViewController.swift */; };
 		E164D8841F2E3CDB007B2055 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E164D8831F2E3CDB007B2055 /* AppDelegate.swift */; };
 		E164D8891F2E3CDB007B2055 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E164D8871F2E3CDB007B2055 /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B8F078111F72F4F1000FD633 /* ImageFilterCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFilterCollectionViewController.swift; sourceTree = "<group>"; };
 		D59AD1261F473E7900F84200 /* AddCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCommentViewController.swift; sourceTree = "<group>"; };
 		E164D8801F2E3CDB007B2055 /* Nutstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nutstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E164D8831F2E3CDB007B2055 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -46,6 +48,7 @@
 		B57107461F6F33C2002631A7 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B8F078111F72F4F1000FD633 /* ImageFilterCollectionViewController.swift */,
 				E164D8831F2E3CDB007B2055 /* AppDelegate.swift */,
 				E164D8951F2E3D1C007B2055 /* NutstagramTableViewController.swift */,
 				E164D8991F2E3D65007B2055 /* NutstagramCommentsTableViewController.swift */,
@@ -140,7 +143,7 @@
 				TargetAttributes = {
 					E164D87F1F2E3CDB007B2055 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = T7S6VUJ2BC;
+						DevelopmentTeam = VM5XXWMN9Y;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -184,6 +187,7 @@
 				E164D8841F2E3CDB007B2055 /* AppDelegate.swift in Sources */,
 				E164D89A1F2E3D65007B2055 /* NutstagramCommentsTableViewController.swift in Sources */,
 				E164D8961F2E3D1C007B2055 /* NutstagramTableViewController.swift in Sources */,
+				B8F078121F72F4F1000FD633 /* ImageFilterCollectionViewController.swift in Sources */,
 				E164D8981F2E3D3A007B2055 /* NutstagramTableViewCell.swift in Sources */,
 				D59AD1271F473E7900F84200 /* AddCommentViewController.swift in Sources */,
 				E164D89C1F2E3D6E007B2055 /* Post.swift in Sources */,
@@ -311,7 +315,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = T7S6VUJ2BC;
+				DEVELOPMENT_TEAM = VM5XXWMN9Y;
 				INFOPLIST_FILE = Nutstagram/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.new.Nutstagram;
@@ -324,7 +328,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = T7S6VUJ2BC;
+				DEVELOPMENT_TEAM = VM5XXWMN9Y;
 				INFOPLIST_FILE = Nutstagram/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.new.Nutstagram;

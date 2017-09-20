@@ -9,9 +9,68 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Select a Filter-->
+        <scene sceneID="sw6-Bf-W9s">
+            <objects>
+                <collectionViewController title="Select a Filter" id="SDb-rH-mHh" customClass="ImageFilterCollectionViewController" customModule="Nutstagram" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="lWl-6v-6o3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="50" id="Fbf-gc-wfP">
+                            <size key="itemSize" width="100" height="120"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="25" minY="25" maxX="25" maxY="25"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" semanticContentAttribute="spatial" reuseIdentifier="filterCell" id="51r-S6-KHu">
+                                <rect key="frame" x="25" y="25" width="100" height="120"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="100" height="120"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HlM-2p-gCx">
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="91"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6mD-8B-K16">
+                                            <rect key="frame" x="29" y="99" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="6mD-8B-K16" firstAttribute="centerX" secondItem="HlM-2p-gCx" secondAttribute="centerX" id="0Nt-Kh-3JJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="HlM-2p-gCx" secondAttribute="trailing" id="TAn-gr-u6c"/>
+                                    <constraint firstAttribute="bottom" secondItem="6mD-8B-K16" secondAttribute="bottom" id="Upo-Dg-vHX"/>
+                                    <constraint firstItem="6mD-8B-K16" firstAttribute="top" secondItem="HlM-2p-gCx" secondAttribute="bottom" constant="8" symbolic="YES" id="kGY-uZ-7vS"/>
+                                    <constraint firstItem="HlM-2p-gCx" firstAttribute="leading" secondItem="51r-S6-KHu" secondAttribute="leading" id="st5-Nk-YWe"/>
+                                    <constraint firstItem="HlM-2p-gCx" firstAttribute="top" secondItem="51r-S6-KHu" secondAttribute="top" id="v4d-cX-cUp"/>
+                                </constraints>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="SDb-rH-mHh" id="bzf-md-ann"/>
+                            <outlet property="delegate" destination="SDb-rH-mHh" id="3ey-fD-zY3"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" title="Select a Filter" id="Qof-8n-WiH">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="dnz-zM-icI"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="yUn-YP-ldC"/>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MP5-fW-QGm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3792.8000000000002" y="-532.98350824587715"/>
+        </scene>
         <!--Nutstagram-->
         <scene sceneID="DCC-gl-oUe">
             <objects>
@@ -86,10 +145,22 @@
                                                         <segue destination="4ve-VS-HMd" kind="show" identifier="addComment" id="JyS-o5-D7T"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSd-AT-Tsv">
+                                                    <rect key="frame" x="128.5" y="385" width="117" height="30"/>
+                                                    <state key="normal" title="🕶 Change Filter"/>
+                                                    <connections>
+                                                        <action selector="changeFilterButtonTapped:" destination="afs-iC-cC9" eventType="touchUpInside" id="1e5-pB-Rlu"/>
+                                                        <segue destination="SDb-rH-mHh" kind="presentation" identifier="showFilterPicker" id="cDJ-Hk-UNe">
+                                                            <segue key="commit" inheritsFrom="parent" id="jaB-zA-GRr"/>
+                                                            <segue key="preview" inheritsFrom="commit" id="vQ3-Wu-eAe"/>
+                                                        </segue>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="nhL-v1-3lI" firstAttribute="top" secondItem="zkV-fN-vOY" secondAttribute="bottom" constant="8" symbolic="YES" id="0Ev-he-bFr"/>
                                                 <constraint firstItem="NZx-Gu-nwo" firstAttribute="leading" secondItem="qUo-Ew-kg8" secondAttribute="leadingMargin" id="13U-03-EPI"/>
+                                                <constraint firstItem="VSd-AT-Tsv" firstAttribute="centerY" secondItem="VgN-7d-McR" secondAttribute="centerY" id="6BA-7c-436"/>
                                                 <constraint firstItem="VgN-7d-McR" firstAttribute="centerY" secondItem="zkV-fN-vOY" secondAttribute="centerY" id="6qc-HX-h2e"/>
                                                 <constraint firstItem="5uV-0f-W9y" firstAttribute="centerY" secondItem="zkV-fN-vOY" secondAttribute="centerY" id="8OZ-8X-1Ct"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="S5g-Mf-rEf" secondAttribute="bottom" constant="8" id="Fwb-M6-nrx"/>
@@ -103,6 +174,7 @@
                                                 <constraint firstItem="NZx-Gu-nwo" firstAttribute="trailing" secondItem="qUo-Ew-kg8" secondAttribute="trailingMargin" id="d1g-Ki-rFs"/>
                                                 <constraint firstItem="nhL-v1-3lI" firstAttribute="leading" secondItem="qUo-Ew-kg8" secondAttribute="leadingMargin" id="jlx-7p-sIb"/>
                                                 <constraint firstItem="NZx-Gu-nwo" firstAttribute="top" secondItem="qUo-Ew-kg8" secondAttribute="topMargin" constant="8" id="oaJ-bT-2pk"/>
+                                                <constraint firstItem="VSd-AT-Tsv" firstAttribute="centerX" secondItem="Rn3-wK-nzW" secondAttribute="centerX" id="oqH-BO-Mbh"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="5uV-0f-W9y" secondAttribute="trailing" id="sJZ-rU-3Qq"/>
                                                 <constraint firstItem="Rn3-wK-nzW" firstAttribute="leading" secondItem="qUo-Ew-kg8" secondAttribute="leading" id="ubB-Z3-CLH"/>
                                                 <constraint firstItem="Rn3-wK-nzW" firstAttribute="top" secondItem="NZx-Gu-nwo" secondAttribute="bottom" constant="8" symbolic="YES" id="w9l-gM-lbn"/>
@@ -249,7 +321,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tuO-5u-mVm" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Rx8-PH-S9l">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Rx8-PH-S9l">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -267,4 +339,7 @@
     <resources>
         <image name="default" width="35" height="35"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="cDJ-Hk-UNe"/>
+    </inferredMetricsTieBreakers>
 </document>
