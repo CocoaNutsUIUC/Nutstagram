@@ -113,6 +113,20 @@ class NutstagramTableViewController: UIViewController {
         }
     }
     
+    private func changeFilter(withId postId: Int, toFilter filterName: String) {
+        if let url = URL(string: "http://nutstagramapi-env-2.j3tcbpybxd.us-east-1.elasticbeanstalk.com/filter/\(postId)") {
+            
+            var request = URLRequest(url: url)
+            let dictionary = ["filter": filterName]
+            let httpBody = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+            request.httpMethod = "POST"
+            request.httpBody = httpBody
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("application/json", forHTTPHeaderField: "Accept")
+            send(urlRequest: request, delegate: nil)
+        }
+    }
+    
     fileprivate func send(urlRequest: URLRequest, delegate: URLSessionDataDelegate?) {
         let defaultSession = URLSession(configuration: .default, delegate: delegate, delegateQueue: nil)
         let dataTask = defaultSession.dataTask(with: urlRequest)
