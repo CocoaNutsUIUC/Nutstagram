@@ -30,17 +30,20 @@ struct Post {
     public let imageURL: URL
     public var numLikes: Int
     public var comments: [String]
+    // Add filterName to keep track of which filter is applied to the image.
+    public var filterName: String!
     
     private(set) public var isLiked: Bool // read-only property
     
     // MARK: Initializer
     
-    init(author: User, imageURL: URL, numLikes: Int, comments: [String]) {
+    init(author: User, imageURL: URL, numLikes: Int, comments: [String], filterName: String) {
         self.author = author
         self.imageURL = imageURL
         self.numLikes = numLikes
         self.comments = comments
         self.isLiked = false
+        self.filterName = filterName
     }
     
     // MARK: Methods

@@ -113,6 +113,21 @@ class NutstagramTableViewController: UIViewController {
         }
     }
     
+    // CHANGED: added function to send filter request
+    private func changeFilter(withId postId: Int, toFilter filterName: String) {
+        if let url = URL(string: "http://nutstagramapi-env-2.j3tcbpybxd.us-east-1.elasticbeanstalk.com/filter/\(postId)") {
+            
+            var request = URLRequest(url: url)
+            let dictionary = ["filter": filterName]
+            let httpBody = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+            request.httpMethod = "POST"
+            request.httpBody = httpBody
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("application/json", forHTTPHeaderField: "Accept")
+            send(urlRequest: request, delegate: nil)
+        }
+    }
+    
     fileprivate func send(urlRequest: URLRequest, delegate: URLSessionDataDelegate?) {
         let defaultSession = URLSession(configuration: .default, delegate: delegate, delegateQueue: nil)
         let dataTask = defaultSession.dataTask(with: urlRequest)
@@ -165,7 +180,7 @@ class NutstagramTableViewController: UIViewController {
                 }
             }
         }
-		
+		// CHANGED: added segue to filter picker
 		if segue.identifier == "showFilterPicker" {
 			if let vc = segue.destination as? ImageFilterCollectionViewController {
 				if let button = sender as? UIButton {
@@ -235,6 +250,7 @@ extension NutstagramTableViewController: UITableViewDataSource {
         commentsButtonPostLink[cell.viewAllCommentsButton.hash] = indexPath.row
         addCommentButtonPostLink[cell.addCommentButton.hash] = indexPath.row
         postForButton[cell.likeButton.hash] = indexPath.row
+        // CHANGED: added hash for changeFilterButton
         filterButtonPostLink[cell.changeFilterButton.hash] = indexPath.row
         
         return cell
@@ -305,9 +321,11 @@ extension NutstagramTableViewController: URLSessionDataDelegate {
             }
             
             guard let imageURL = URL(string: imageURLString) else { return }
-                        
             let user = User(name: userName, emojiProfilePic: userEmojiProfilePic)
-            let post = Post(author: user, imageURL: imageURL, numLikes: numLikes, comments: comments)
+            
+            // CHANGED: Added filterName to param
+            guard let filterName = userInfo["filter"] as? String else { return }
+            let post = Post(author: user, imageURL: imageURL, numLikes: numLikes, comments: comments, filterName: filterName)
             
             posts.append(post)
         }
