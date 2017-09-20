@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B8F078121F72F4F1000FD633 /* ImageFilterCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F078111F72F4F1000FD633 /* ImageFilterCollectionViewController.swift */; };
+		B8F078141F72FA8D000FD633 /* ImageFilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F078131F72FA8D000FD633 /* ImageFilterCollectionViewCell.swift */; };
 		D59AD1271F473E7900F84200 /* AddCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59AD1261F473E7900F84200 /* AddCommentViewController.swift */; };
 		E164D8841F2E3CDB007B2055 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E164D8831F2E3CDB007B2055 /* AppDelegate.swift */; };
 		E164D8891F2E3CDB007B2055 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E164D8871F2E3CDB007B2055 /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		B8F078111F72F4F1000FD633 /* ImageFilterCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFilterCollectionViewController.swift; sourceTree = "<group>"; };
+		B8F078131F72FA8D000FD633 /* ImageFilterCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		D59AD1261F473E7900F84200 /* AddCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCommentViewController.swift; sourceTree = "<group>"; };
 		E164D8801F2E3CDB007B2055 /* Nutstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nutstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E164D8831F2E3CDB007B2055 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -48,11 +50,11 @@
 		B57107461F6F33C2002631A7 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B8F078111F72F4F1000FD633 /* ImageFilterCollectionViewController.swift */,
-				E164D8831F2E3CDB007B2055 /* AppDelegate.swift */,
-				E164D8951F2E3D1C007B2055 /* NutstagramTableViewController.swift */,
-				E164D8991F2E3D65007B2055 /* NutstagramCommentsTableViewController.swift */,
 				D59AD1261F473E7900F84200 /* AddCommentViewController.swift */,
+				E164D8831F2E3CDB007B2055 /* AppDelegate.swift */,
+				B8F078111F72F4F1000FD633 /* ImageFilterCollectionViewController.swift */,
+				E164D8991F2E3D65007B2055 /* NutstagramCommentsTableViewController.swift */,
+				E164D8951F2E3D1C007B2055 /* NutstagramTableViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -60,6 +62,7 @@
 		B57107471F6F33E1002631A7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B8F078131F72FA8D000FD633 /* ImageFilterCollectionViewCell.swift */,
 				E164D8971F2E3D3A007B2055 /* NutstagramTableViewCell.swift */,
 				E164D8871F2E3CDB007B2055 /* Main.storyboard */,
 			);
@@ -190,6 +193,7 @@
 				B8F078121F72F4F1000FD633 /* ImageFilterCollectionViewController.swift in Sources */,
 				E164D8981F2E3D3A007B2055 /* NutstagramTableViewCell.swift in Sources */,
 				D59AD1271F473E7900F84200 /* AddCommentViewController.swift in Sources */,
+				B8F078141F72FA8D000FD633 /* ImageFilterCollectionViewCell.swift in Sources */,
 				E164D89C1F2E3D6E007B2055 /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -28,7 +28,7 @@
                             <inset key="sectionInset" minX="25" minY="25" maxX="25" maxY="25"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" semanticContentAttribute="spatial" reuseIdentifier="filterCell" id="51r-S6-KHu">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" semanticContentAttribute="spatial" reuseIdentifier="filterCell" id="51r-S6-KHu" customClass="ImageFilterCollectionViewCell" customModule="Nutstagram" customModuleProvider="target">
                                 <rect key="frame" x="25" y="25" width="100" height="120"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -54,6 +54,10 @@
                                     <constraint firstItem="HlM-2p-gCx" firstAttribute="leading" secondItem="51r-S6-KHu" secondAttribute="leading" id="st5-Nk-YWe"/>
                                     <constraint firstItem="HlM-2p-gCx" firstAttribute="top" secondItem="51r-S6-KHu" secondAttribute="top" id="v4d-cX-cUp"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="displayedImageView" destination="HlM-2p-gCx" id="UXg-BV-FT7"/>
+                                    <outlet property="label" destination="6mD-8B-K16" id="zje-1a-Obi"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -183,6 +187,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="addCommentButton" destination="5uV-0f-W9y" id="TKR-m2-Q3W"/>
+                                            <outlet property="changeFilterButton" destination="VSd-AT-Tsv" id="ON7-U1-kX2"/>
                                             <outlet property="likeButton" destination="zkV-fN-vOY" id="FdL-Gm-etp"/>
                                             <outlet property="numLikesLabel" destination="VgN-7d-McR" id="gqt-ge-iOe"/>
                                             <outlet property="postImageView" destination="Rn3-wK-nzW" id="qZg-oU-k5N"/>
