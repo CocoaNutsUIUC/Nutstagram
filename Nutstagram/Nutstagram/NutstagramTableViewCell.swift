@@ -19,6 +19,7 @@ class NutstagramTableViewCell: UITableViewCell {
     @IBOutlet weak var userCommentLabel: UILabel!
     @IBOutlet weak var viewAllCommentsButton: UIButton!
     @IBOutlet weak var addCommentButton: UIButton!
+    // CHANGED: Added IBOutlet to changeFileButton
 	@IBOutlet weak var changeFilterButton: UIButton!
 
 }
