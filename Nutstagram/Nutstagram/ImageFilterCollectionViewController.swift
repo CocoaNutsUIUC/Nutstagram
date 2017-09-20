@@ -13,6 +13,7 @@ private let reuseIdentifier = "filterCell"
 class ImageFilterCollectionViewController: UICollectionViewController {
 	
 	var unmodifiedImage: UIImage!
+    var postId: Int!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +23,6 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 
         // Register cell classes
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
         // Do any additional setup after loading the view.
     }
 
