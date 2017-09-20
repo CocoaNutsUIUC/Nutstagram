@@ -20,6 +20,7 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 		kCICategoryStylize
 	]
 	var chooseableFilters = [String]()
+    var postId: Int!
 
     override func viewDidLoad() {
         super.viewDidLoad()

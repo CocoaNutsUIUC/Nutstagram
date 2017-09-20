@@ -170,9 +170,10 @@ class NutstagramTableViewController: UIViewController {
 			if let vc = segue.destination as? ImageFilterCollectionViewController {
 				if let button = sender as? UIButton {
 					if let row = filterButtonPostLink[button.hash] {
-						let postId = postIds[row]
-						let post = posts[postId]
+						let post = posts[row]
+                        let postId = postIds[row]
 						vc.unmodifiedImage = post.image
+                        vc.postId = postId
 					}
 				}
 			}
@@ -234,6 +235,7 @@ extension NutstagramTableViewController: UITableViewDataSource {
         commentsButtonPostLink[cell.viewAllCommentsButton.hash] = indexPath.row
         addCommentButtonPostLink[cell.addCommentButton.hash] = indexPath.row
         postForButton[cell.likeButton.hash] = indexPath.row
+        filterButtonPostLink[cell.changeFilterButton.hash] = indexPath.row
         
         return cell
     }
