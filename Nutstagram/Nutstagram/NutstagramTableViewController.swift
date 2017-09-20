@@ -172,7 +172,7 @@ class NutstagramTableViewController: UIViewController {
 					if let row = filterButtonPostLink[button.hash] {
 						let post = posts[row]
                         let postId = postIds[row]
-						vc.unmodifiedImage = post.image
+						vc.unmodifiedImage = resize(image: post.image!)
                         vc.postId = postId
 					}
 				}

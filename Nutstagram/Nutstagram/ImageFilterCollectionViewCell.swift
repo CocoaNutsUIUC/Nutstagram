@@ -12,4 +12,5 @@ class ImageFilterCollectionViewCell: UICollectionViewCell {
 	
 	@IBOutlet weak var displayedImageView: UIImageView!
 	@IBOutlet weak var label: UILabel!
+	
 }

@@ -19,7 +19,7 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 		kCICategoryColorEffect,
 		kCICategoryStylize
 	]
-	var chooseableFilters = [String]()
+	var chooseableFilters: [String] = ["No Filter"]
     var postId: Int!
 
     override func viewDidLoad() {
@@ -29,10 +29,12 @@ class ImageFilterCollectionViewController: UICollectionViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.register(ImageFilterCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+//        self.collectionView!.register(ImageFilterCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 		
 		// Get the list of available filters
-		chooseableFilters = CIFilter.filterNames(inCategories: displayedFilterCategories)
+		for filterCategory in displayedFilterCategories {
+			chooseableFilters += CIFilter.filterNames(inCategory: filterCategory)
+		}
     }
 	
     // MARK: UICollectionViewDataSource
@@ -43,14 +45,35 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return chooseableFilters.count // First cell is always no filter
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ImageFilterCollectionViewCell
     
         // Configure the cell
-    
+		if indexPath.row == 0 {
+			// The first filter is always no filter
+			cell.label.text = "No Filter"
+			cell.displayedImageView.image = unmodifiedImage;
+		} else {
+			// Apply a Core Image filter
+			let filterName = chooseableFilters[indexPath.row]
+			// Give it an input image
+			let inputParams = [kCIInputImageKey: CIImage(cgImage: unmodifiedImage.cgImage!)]
+			guard let filter = CIFilter(name: filterName, withInputParameters: inputParams) else {
+				print("Unknown filter: \(filterName)")
+				return cell
+			}
+			cell.label.text = CIFilter.localizedName(forFilterName: filterName)
+			// Apply the filter
+			guard let outputImage = filter.outputImage else {
+				print("Unable to apply filter \(filterName) to the image")
+				return cell
+			}
+			cell.displayedImageView.image = UIImage(ciImage: outputImage)
+		}
+		
         return cell
     }
 
