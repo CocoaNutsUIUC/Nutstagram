@@ -16,7 +16,7 @@
         <scene sceneID="sw6-Bf-W9s">
             <objects>
                 <collectionViewController title="Select a Filter" id="SDb-rH-mHh" customClass="ImageFilterCollectionViewController" customModule="Nutstagram" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="lWl-6v-6o3">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="lWl-6v-6o3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -37,7 +37,7 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HlM-2p-gCx">
                                             <rect key="frame" x="0.0" y="0.0" width="150" height="141"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6mD-8B-K16">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6mD-8B-K16">
                                             <rect key="frame" x="0.0" y="149" width="150" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -67,14 +67,25 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Select a Filter" id="Qof-8n-WiH">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="dnz-zM-icI"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="yUn-YP-ldC"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="dnz-zM-icI">
+                            <connections>
+                                <action selector="cancelButtonTapped:" destination="SDb-rH-mHh" id="ilh-P1-pQL"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="yUn-YP-ldC">
+                            <connections>
+                                <action selector="saveButtonTapped:" destination="SDb-rH-mHh" id="R1z-Zk-X5y"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <segue destination="2XX-xs-bWD" kind="unwind" identifier="unwindToNutstagramTVC" unwindAction="unwindToNutstagramTableViewControllerWithSegue:" id="mbU-vp-Hll"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MP5-fW-QGm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="2XX-xs-bWD" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3792.8000000000002" y="-532.98350824587715"/>
+            <point key="canvasLocation" x="4732" y="-532.98350824587715"/>
         </scene>
         <!--Nutstagram-->
         <scene sceneID="DCC-gl-oUe">
@@ -155,7 +166,7 @@
                                                     <state key="normal" title="🕶 Change Filter"/>
                                                     <connections>
                                                         <action selector="changeFilterButtonTapped:" destination="afs-iC-cC9" eventType="touchUpInside" id="1e5-pB-Rlu"/>
-                                                        <segue destination="SDb-rH-mHh" kind="presentation" identifier="showFilterPicker" id="cDJ-Hk-UNe"/>
+                                                        <segue destination="GJU-nh-VCc" kind="presentation" identifier="showFilterPicker" id="cDJ-Hk-UNe"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -337,6 +348,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8rh-Dy-W3s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2796" y="221.73913043478262"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="b1F-BP-ATW">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GJU-nh-VCc" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Rud-I3-jbN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="SDb-rH-mHh" kind="relationship" relationship="rootViewController" id="snc-UC-LGS"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tc9-YO-aVC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3792.8000000000002" y="-532.98350824587715"/>
         </scene>
     </scenes>
     <resources>

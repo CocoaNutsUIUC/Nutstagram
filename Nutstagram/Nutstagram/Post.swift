@@ -22,6 +22,8 @@ struct User {
 }
 
 struct Post {
+	
+	public static let defaultFilterName = "no_filter"
     
     // MARK: Properties
     

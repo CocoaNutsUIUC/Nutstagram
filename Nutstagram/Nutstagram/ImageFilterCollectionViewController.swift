@@ -16,6 +16,7 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 	/// The original image to which we will apply filters
 	var unmodifiedImage: UIImage!
     var postId: Int!
+	var selectedFilter = Post.defaultFilterName
 	
 	let displayedFilterCategories = [
 //		kCICategoryColorEffect,
@@ -30,7 +31,7 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 	]
 	
 	/// The filters that will actually be shown.
-	var chooseableFilters: [String] = ["No Filter"]
+	var choosableFilters: [String] = [Post.defaultFilterName]
 	
 	fileprivate let filterQueue = OperationQueue()
 	fileprivate var filterJobs = [IndexPath : Operation]()
@@ -41,11 +42,11 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 		
 		// Get the list of available filters
 		for filterCategory in displayedFilterCategories {
-			chooseableFilters += CIFilter.filterNames(inCategory: filterCategory)
+			choosableFilters += CIFilter.filterNames(inCategory: filterCategory)
 		}
 		// Remove any filters in our excludes list
-		chooseableFilters = chooseableFilters.filter { !excludedFilters.contains($0) }
-		chooseableFilters = [
+		choosableFilters = choosableFilters.filter { !excludedFilters.contains($0) }
+		choosableFilters = [
 			"CIComicEffect",
 			"CICrystallize",
 			"CIEdges",
@@ -70,6 +71,18 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 		filterQueue.addOperation(resizeUnmodifiedImageJob)
     }
 	
+	// MARK: IBActions
+	
+	@IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
+		dismiss(animated: true)
+	}
+	
+	@IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
+		// It may look like it does the same thing as dismiss(animated:), but it doesn't!
+		// We do some work to save the selection in our table view controller
+		performSegue(withIdentifier: "unwindToNutstagramTVC", sender: self)
+	}
+	
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -78,7 +91,7 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return chooseableFilters.count // First cell is always no filter
+        return choosableFilters.count // First cell is always no filter
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -97,9 +110,8 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 			}
 		} else {
 			// Apply a Core Image filter
-			let filterName = chooseableFilters[indexPath.row]
+			let filterName = choosableFilters[indexPath.row]
 			cell.label.text = CIFilter.localizedName(forFilterName: filterName)
-			print("\(filterName) = \(cell.label.text!)")
 			// Apply the filter
 			filterJob = BlockOperation() {
 				// Give it an input image
@@ -150,26 +162,12 @@ class ImageFilterCollectionViewController: UICollectionViewController {
     }
     */
 
-    /*
     // Uncomment this method to specify if the specified item should be selected
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+		// Update our selected filter
+		selectedFilter = choosableFilters[indexPath.row]
+		
         return true
     }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
 
 }

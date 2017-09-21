@@ -86,6 +86,21 @@ class NutstagramTableViewController: UIViewController {
 		self.performSegue(withIdentifier: "showFilterPicker", sender: sender)
 	}
 	
+	@IBAction func unwindToNutstagramTableViewController(segue: UIStoryboardSegue) {
+		guard let imageFilterVC = segue.source as? ImageFilterCollectionViewController else {
+			return
+		}
+		
+		// Grab the selected filter and send it to the server to save it
+		changeFilter(withId: imageFilterVC.postId, toFilter: imageFilterVC.selectedFilter)
+		// Display the image with the new filter
+		guard let rowNum = postIds.index(of: imageFilterVC.postId) else {
+			print("Post id \(imageFilterVC.postId) not found!")
+			return
+		}
+		tableView.reloadRows(at: [IndexPath(row: rowNum, section: 0)], with: .automatic)
+	}
+	
     // MARK: Private Helper methods
     
     fileprivate func loadServerData() {
@@ -166,13 +181,15 @@ class NutstagramTableViewController: UIViewController {
         }
 		// CHANGED: added segue to filter picker
 		if segue.identifier == "showFilterPicker" {
-			if let vc = segue.destination as? ImageFilterCollectionViewController {
-				if let button = sender as? UIButton {
-					if let row = filterButtonPostLink[button.hash] {
-						let post = posts[row]
-                        let postId = postIds[row]
-						vc.unmodifiedImage = post.image
-                        vc.postId = postId
+			if let navVc = segue.destination as? UINavigationController {
+				if let vc = navVc.topViewController as? ImageFilterCollectionViewController {
+					if let button = sender as? UIButton {
+						if let row = filterButtonPostLink[button.hash] {
+							let post = posts[row]
+							let postId = postIds[row]
+							vc.unmodifiedImage = post.image
+							vc.postId = postId
+						}
 					}
 				}
 			}
