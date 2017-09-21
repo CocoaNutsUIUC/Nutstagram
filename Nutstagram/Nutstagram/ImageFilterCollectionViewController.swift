@@ -16,7 +16,7 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 	/// The original image to which we will apply filters
 	var unmodifiedImage: UIImage!
     var postId: Int!
-	var selectedFilter = Post.defaultFilterName
+	var selectedFilter = Post.noFilterName
 	
 	let displayedFilterCategories = [
 //		kCICategoryColorEffect,
@@ -31,7 +31,7 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 	]
 	
 	/// The filters that will actually be shown.
-	var choosableFilters: [String] = [Post.defaultFilterName]
+	var choosableFilters: [String] = [Post.noFilterName]
 	
 	fileprivate let filterQueue = OperationQueue()
 	fileprivate var filterJobs = [IndexPath : Operation]()

@@ -51,7 +51,7 @@ class NutstagramTableViewController: UIViewController {
         if let index = postForButton[sender.hash] {
             
             // get the post and cell
-            var post = posts[index]
+            let post = posts[index]
             let postId = postIds[index]
             
             guard let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? NutstagramTableViewCell else {
@@ -259,12 +259,19 @@ extension NutstagramTableViewController: UITableViewDataSource {
     
     private func configure(cell: NutstagramTableViewCell, at indexPath: IndexPath, with post: Post) {
         cell.userNameLabel.text = post.author.nameWithPic
-        if let image = post.image {
-			cell.postImageView.image = resize(image: image, toFill: self.view.bounds.size)
-        } else {
-            loadImage(from: post.imageURL, for: cell, at: indexPath)
-        }
-        
+		
+		// First check if we need to download the image
+		if post.image == nil {
+			cell.postImageView.image = nil
+			loadImage(from: post.imageURL, for: cell, at: indexPath)
+		} else {
+			// Check if we need to regenerate our filtered image
+			if post.filteredImage == nil {
+				post.regenerateFilteredImage()
+			}
+			cell.postImageView.image = resize(image: post.filteredImage!, toFill: self.view.bounds.size)
+		}
+		
         (post.isLiked) ? cell.likeButton.setImage(#imageLiteral(resourceName: "like"), for: .normal) : cell.likeButton.setImage(#imageLiteral(resourceName: "default"), for: .normal)
         cell.numLikesLabel.text = "\(post.numLikes) \(post.numLikes == 1 ? "like" : "likes")"
         cell.userCommentLabel.text = post.comments.first

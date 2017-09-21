@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreImage
 import UIKit
 
 struct User {
@@ -21,19 +22,20 @@ struct User {
     }
 }
 
-struct Post {
+class Post {
 	
-	public static let defaultFilterName = "no_filter"
+	public static let noFilterName = "no_filter"
     
     // MARK: Properties
     
     public let author: User
     public var image: UIImage?
+	public var filteredImage: UIImage?
     public let imageURL: URL
     public var numLikes: Int
     public var comments: [String]
     // Add filterName to keep track of which filter is applied to the image.
-    public var filterName: String!
+    public var filterName: String
     
     private(set) public var isLiked: Bool // read-only property
     
@@ -50,13 +52,40 @@ struct Post {
     
     // MARK: Methods
     
-    mutating func like() {
+    func like() {
         self.isLiked = true
         self.numLikes += 1
     }
     
-    mutating func unLike() {
+    func unLike() {
         self.isLiked = false
         self.numLikes -= 1
     }
+	
+	func regenerateFilteredImage() {
+		guard let image = image else {
+			filteredImage = nil
+			return
+		}
+		
+		if filterName == Post.noFilterName {
+			// That was easy!
+			filteredImage = image
+		} else {
+			// Create our filter
+			let inputParams = [kCIInputImageKey: CIImage(cgImage: image.cgImage!)]
+			guard let filter = CIFilter(name: filterName, withInputParameters: inputParams) else {
+				print("Unknown filter: \(filterName)")
+				filteredImage = nil
+				return
+			}
+			guard let outputImage = filter.outputImage else {
+				print("Unable to apply filter \(filterName) to the image")
+				filteredImage = nil
+				return
+			}
+			// And we're done!
+			filteredImage = UIImage(ciImage: outputImage)
+		}
+	}
 }
