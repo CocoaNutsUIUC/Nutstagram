@@ -324,7 +324,7 @@ extension NutstagramTableViewController: URLSessionDataDelegate {
             let user = User(name: userName, emojiProfilePic: userEmojiProfilePic)
             
             // CHANGED: Added filterName to param
-            guard let filterName = userInfo["filter"] as? String else { return }
+            guard let filterName = postInfo["filter"] as? String else { return }
             let post = Post(author: user, imageURL: imageURL, numLikes: numLikes, comments: comments, filterName: filterName)
             
             posts.append(post)
