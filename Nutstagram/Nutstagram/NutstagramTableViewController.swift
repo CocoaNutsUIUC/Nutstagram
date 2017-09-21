@@ -134,22 +134,6 @@ class NutstagramTableViewController: UIViewController {
         dataTask.resume()
     }
     
-    fileprivate func resize(image: UIImage) -> UIImage {
-        // calculate scaling ratio
-        let imageWidth = image.size.width
-        let screenWidth = (UIDevice.current.orientation == .portrait) ? self.view.bounds.width : self.view.bounds.height
-        let ratio = Double(screenWidth) / Double(imageWidth)
-        
-        // resize image
-        let size = image.size.applying(CGAffineTransform(scaleX: CGFloat(ratio), y: CGFloat(ratio)))
-        UIGraphicsBeginImageContextWithOptions(size, true, 0.0)
-        image.draw(in: CGRect(origin: .zero, size: size))
-        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return (scaledImage == nil) ? image : scaledImage!
-    }
-    
     @objc private func refreshPosts(sender: UIRefreshControl) {
         // FUTURE: Fetch data from server
         loadServerData()
@@ -187,7 +171,7 @@ class NutstagramTableViewController: UIViewController {
 					if let row = filterButtonPostLink[button.hash] {
 						let post = posts[row]
                         let postId = postIds[row]
-						vc.unmodifiedImage = resize(image: post.image!)
+						vc.unmodifiedImage = post.image
                         vc.postId = postId
 					}
 				}
@@ -259,7 +243,7 @@ extension NutstagramTableViewController: UITableViewDataSource {
     private func configure(cell: NutstagramTableViewCell, at indexPath: IndexPath, with post: Post) {
         cell.userNameLabel.text = post.author.nameWithPic
         if let image = post.image {
-            cell.postImageView.image = self.resize(image: image)
+			cell.postImageView.image = resize(image: image, toFill: self.view.bounds.size)
         } else {
             loadImage(from: post.imageURL, for: cell, at: indexPath)
         }

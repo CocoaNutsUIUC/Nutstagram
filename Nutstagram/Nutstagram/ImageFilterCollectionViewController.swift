@@ -13,11 +13,12 @@ private let reuseIdentifier = "filterCell"
 
 class ImageFilterCollectionViewController: UICollectionViewController {
 	
+	/// The original image to which we will apply filters
 	var unmodifiedImage: UIImage!
     var postId: Int!
 	
 	let displayedFilterCategories = [
-		kCICategoryColorEffect,
+//		kCICategoryColorEffect,
 		kCICategoryStylize,
 	]
 	/// These filters require two images to operate properly, so we don't use them.
@@ -31,8 +32,9 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 	/// The filters that will actually be shown.
 	var chooseableFilters: [String] = ["No Filter"]
 	
-	let filterQueue = OperationQueue()
-	var filterJobs = [IndexPath : Operation]()
+	fileprivate let filterQueue = OperationQueue()
+	fileprivate var filterJobs = [IndexPath : Operation]()
+	fileprivate var resizeUnmodifiedImageJob: BlockOperation!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +47,18 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 		chooseableFilters = chooseableFilters.filter { !excludedFilters.contains($0) }
 		
 		// Set up our filter work queue
+		filterQueue.name = "Image filter queue"
 		filterQueue.qualityOfService = .userInitiated
+		
+		// Resize our original image
+		resizeUnmodifiedImageJob = BlockOperation {
+			guard let layout = self.collectionViewLayout as? UICollectionViewFlowLayout else {
+				return
+			}
+			let cellSize = layout.itemSize
+			self.unmodifiedImage = resize(image: self.unmodifiedImage, toFill: cellSize)
+		}
+		filterQueue.addOperation(resizeUnmodifiedImageJob)
     }
 	
     // MARK: UICollectionViewDataSource
@@ -61,29 +74,30 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ImageFilterCollectionViewCell
-    
-        // Configure the cell
+		
+		let filterJob: BlockOperation // We'll fill this in later
+		
+		// Configure the cell
 		if indexPath.row == 0 {
 			// The first filter is always no filter
 			cell.label.text = "No Filter"
 			cell.displayedImageView.image = unmodifiedImage;
 			// Create a dummy filter job to simplify things elsewhere
-			let filterJob = BlockOperation() {
+			filterJob = BlockOperation() {
 				// Do nothing
 			}
-			filterJobs[indexPath] = filterJob
 		} else {
 			// Apply a Core Image filter
 			let filterName = chooseableFilters[indexPath.row]
-			// Give it an input image
-			let inputParams = [kCIInputImageKey: CIImage(cgImage: unmodifiedImage.cgImage!)]
-			guard let filter = CIFilter(name: filterName, withInputParameters: inputParams) else {
-				print("Unknown filter: \(filterName)")
-				return cell
-			}
 			cell.label.text = CIFilter.localizedName(forFilterName: filterName)
 			// Apply the filter
-			let filterJob = BlockOperation() {
+			filterJob = BlockOperation() {
+				// Give it an input image
+				let inputParams = [kCIInputImageKey: CIImage(cgImage: self.unmodifiedImage.cgImage!)]
+				guard let filter = CIFilter(name: filterName, withInputParameters: inputParams) else {
+					print("Unknown filter: \(filterName)")
+					return
+				}
 				guard let outputImage = filter.outputImage else {
 					print("Unable to apply filter \(filterName) to the image")
 					return
@@ -93,8 +107,10 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 					cell.displayedImageView.image = uiImage
 				}
 			}
-			filterJobs[indexPath] = filterJob
 		}
+		
+		filterJob.addDependency(resizeUnmodifiedImageJob)
+		filterJobs[indexPath] = filterJob
 		
         return cell
     }
@@ -114,6 +130,8 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 			filterJob.cancel()
 		}
 	}
+	
+	
 
     /*
     // Uncomment this method to specify if the specified item should be highlighted during tracking
