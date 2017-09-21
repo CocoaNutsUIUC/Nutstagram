@@ -92,7 +92,9 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 	
 	override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
 		let filterJob = filterJobs[indexPath]!
-		filterQueue.addOperation(filterJob)
+		if !filterJob.isExecuting && !filterJob.isFinished {
+			filterQueue.addOperation(filterJob)
+		}
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

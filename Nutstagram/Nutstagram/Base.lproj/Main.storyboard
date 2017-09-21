@@ -16,29 +16,29 @@
         <scene sceneID="sw6-Bf-W9s">
             <objects>
                 <collectionViewController title="Select a Filter" id="SDb-rH-mHh" customClass="ImageFilterCollectionViewController" customModule="Nutstagram" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="lWl-6v-6o3">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="lWl-6v-6o3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="50" id="Fbf-gc-wfP">
-                            <size key="itemSize" width="100" height="120"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="25" id="Fbf-gc-wfP">
+                            <size key="itemSize" width="150" height="170"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="25" minY="25" maxX="25" maxY="25"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" semanticContentAttribute="spatial" reuseIdentifier="filterCell" id="51r-S6-KHu" customClass="ImageFilterCollectionViewCell" customModule="Nutstagram" customModuleProvider="target">
-                                <rect key="frame" x="25" y="25" width="100" height="120"/>
+                                <rect key="frame" x="25" y="25" width="150" height="170"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="100" height="120"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="150" height="170"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HlM-2p-gCx">
-                                            <rect key="frame" x="0.0" y="0.0" width="100" height="91"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="150" height="141"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6mD-8B-K16">
-                                            <rect key="frame" x="29" y="99" width="42" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6mD-8B-K16">
+                                            <rect key="frame" x="0.0" y="149" width="150" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -47,8 +47,10 @@
                                 </view>
                                 <constraints>
                                     <constraint firstItem="6mD-8B-K16" firstAttribute="centerX" secondItem="HlM-2p-gCx" secondAttribute="centerX" id="0Nt-Kh-3JJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="6mD-8B-K16" secondAttribute="trailing" id="1P1-W8-JXC"/>
                                     <constraint firstAttribute="trailing" secondItem="HlM-2p-gCx" secondAttribute="trailing" id="TAn-gr-u6c"/>
                                     <constraint firstAttribute="bottom" secondItem="6mD-8B-K16" secondAttribute="bottom" id="Upo-Dg-vHX"/>
+                                    <constraint firstItem="6mD-8B-K16" firstAttribute="leading" secondItem="51r-S6-KHu" secondAttribute="leading" id="Z46-zE-kC0"/>
                                     <constraint firstItem="6mD-8B-K16" firstAttribute="top" secondItem="HlM-2p-gCx" secondAttribute="bottom" constant="8" symbolic="YES" id="kGY-uZ-7vS"/>
                                     <constraint firstItem="HlM-2p-gCx" firstAttribute="leading" secondItem="51r-S6-KHu" secondAttribute="leading" id="st5-Nk-YWe"/>
                                     <constraint firstItem="HlM-2p-gCx" firstAttribute="top" secondItem="51r-S6-KHu" secondAttribute="top" id="v4d-cX-cUp"/>
