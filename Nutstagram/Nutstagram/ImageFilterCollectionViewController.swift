@@ -14,27 +14,27 @@ private let reuseIdentifier = "filterCell"
 class ImageFilterCollectionViewController: UICollectionViewController {
 	
 	var unmodifiedImage: UIImage!
+    var postId: Int!
 	
 	let displayedFilterCategories = [
 		kCICategoryColorEffect,
 		kCICategoryStylize
 	]
 	var chooseableFilters: [String] = ["No Filter"]
-    var postId: Int!
+	
+	let filterQueue = OperationQueue()
+	var filterJobs = [IndexPath : Operation]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-//        self.collectionView!.register(ImageFilterCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 		
 		// Get the list of available filters
 		for filterCategory in displayedFilterCategories {
 			chooseableFilters += CIFilter.filterNames(inCategory: filterCategory)
 		}
+		
+		// Set up our filter work queue
+		filterQueue.qualityOfService = .userInitiated
     }
 	
     // MARK: UICollectionViewDataSource
@@ -56,6 +56,11 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 			// The first filter is always no filter
 			cell.label.text = "No Filter"
 			cell.displayedImageView.image = unmodifiedImage;
+			// Create a dummy filter job to simplify things elsewhere
+			let filterJob = BlockOperation() {
+				// Do nothing
+			}
+			filterJobs[indexPath] = filterJob
 		} else {
 			// Apply a Core Image filter
 			let filterName = chooseableFilters[indexPath.row]
@@ -67,17 +72,35 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 			}
 			cell.label.text = CIFilter.localizedName(forFilterName: filterName)
 			// Apply the filter
-			guard let outputImage = filter.outputImage else {
-				print("Unable to apply filter \(filterName) to the image")
-				return cell
+			let filterJob = BlockOperation() {
+				guard let outputImage = filter.outputImage else {
+					print("Unable to apply filter \(filterName) to the image")
+					return
+				}
+				let uiImage = UIImage(ciImage: outputImage)
+				DispatchQueue.main.async {
+					cell.displayedImageView.image = uiImage
+				}
 			}
-			cell.displayedImageView.image = UIImage(ciImage: outputImage)
+			filterJobs[indexPath] = filterJob
 		}
 		
         return cell
     }
 
     // MARK: UICollectionViewDelegate
+	
+	override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+		let filterJob = filterJobs[indexPath]!
+		filterQueue.addOperation(filterJob)
+	}
+	
+	override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+		let filterJob = filterJobs[indexPath]!
+		if filterJob.isExecuting {
+			filterJob.cancel()
+		}
+	}
 
     /*
     // Uncomment this method to specify if the specified item should be highlighted during tracking
