@@ -71,6 +71,11 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 		filterQueue.addOperation(resizeUnmodifiedImageJob)
     }
 	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+//		collectionView?.allowsSelection
+	}
+	
 	// MARK: IBActions
 	
 	@IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
@@ -136,6 +141,19 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 		
         return cell
     }
+	
+	private func setHighlighted(highlighted: Bool, ForCellAt indexPath: IndexPath) {
+		let cell = collectionView?.cellForItem(at: indexPath)
+		// Animate setting the background color
+		UIView.animate(withDuration: 0.1, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
+			if highlighted {
+				cell?.backgroundColor = UIColor.blue
+			} else {
+				cell?.backgroundColor = UIColor.clear
+			}
+		}, completion: nil)
+		
+	}
 
     // MARK: UICollectionViewDelegate
 	
@@ -153,21 +171,25 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 		}
 	}
 	
-	
-
-    /*
+	/*
     // Uncomment this method to specify if the specified item should be highlighted during tracking
     override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
         return true
     }
-    */
+	*/
+	
+	override func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+		setHighlighted(highlighted: true, ForCellAt: indexPath)
+	}
+	
+	override func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+		setHighlighted(highlighted: false, ForCellAt: indexPath)
+	}
 
     // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		// Update our selected filter
 		selectedFilter = choosableFilters[indexPath.row]
-		
-        return true
     }
 
 }
