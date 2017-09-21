@@ -45,6 +45,15 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 		}
 		// Remove any filters in our excludes list
 		chooseableFilters = chooseableFilters.filter { !excludedFilters.contains($0) }
+		chooseableFilters = [
+			"CIComicEffect",
+			"CICrystallize",
+			"CIEdges",
+			"CIHexagonalPixellate",
+			"CILineOverlay",
+			"CIPixellate",
+			"CIPointillize",
+		]
 		
 		// Set up our filter work queue
 		filterQueue.name = "Image filter queue"
@@ -90,6 +99,7 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 			// Apply a Core Image filter
 			let filterName = chooseableFilters[indexPath.row]
 			cell.label.text = CIFilter.localizedName(forFilterName: filterName)
+			print("\(filterName) = \(cell.label.text!)")
 			// Apply the filter
 			filterJob = BlockOperation() {
 				// Give it an input image
