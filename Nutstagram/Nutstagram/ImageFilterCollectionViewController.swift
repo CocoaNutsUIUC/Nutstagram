@@ -18,8 +18,17 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 	
 	let displayedFilterCategories = [
 		kCICategoryColorEffect,
-		kCICategoryStylize
+		kCICategoryStylize,
 	]
+	/// These filters require two images to operate properly, so we don't use them.
+	let excludedFilters = [
+		"CIBlendWithAlphaMask",
+		"CIBlendWithMask",
+		"CIColorMap",
+		"CIShadedMaterial",
+	]
+	
+	/// The filters that will actually be shown.
 	var chooseableFilters: [String] = ["No Filter"]
 	
 	let filterQueue = OperationQueue()
@@ -32,6 +41,8 @@ class ImageFilterCollectionViewController: UICollectionViewController {
 		for filterCategory in displayedFilterCategories {
 			chooseableFilters += CIFilter.filterNames(inCategory: filterCategory)
 		}
+		// Remove any filters in our excludes list
+		chooseableFilters = chooseableFilters.filter { !excludedFilters.contains($0) }
 		
 		// Set up our filter work queue
 		filterQueue.qualityOfService = .userInitiated
